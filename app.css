@@ -1,0 +1,31 @@
+body {
+    display: flex;
+    justify-content: center;
+    margin: 0 0;
+}
+button {
+    width: 200px;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    font-size: medium;
+    cursor: pointer;
+    background-color: gray;
+    color: white;
+}
+.container {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+.header {
+    display: flex;
+    justify-content: center;
+}
+.label {
+    margin-bottom: 5px;
+}
+.button {
+    display: flex;
+    justify-content: center;
+}

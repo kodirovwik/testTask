@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="app.css" rel="stylesheet" type="text/css">
+    <title>S2 Test Task</title>
+</head>
+<body>
+    <div class="container">
+        <h2 style="text-align: center">Тестовое задание для ребят из S2</h2>
+        <label class="label">Введите кол-во бутылок</label>
+        <input style="margin-bottom: 5px" type="number" id="bottleQuantity">
+        <div class="button">
+            <button id="submit">Рассчитать</button>
+        </div>
+        <div id="result"></div>
+    </div>
+</body>
+</html>
+<script>
+    let bottleQuantity = document.getElementById('bottleQuantity');
+    let button = document.getElementById('submit');
+
+    button.onclick = () => {
+        sendRequest(bottleQuantity.value).then((data) => {
+           return data.json();
+        }).then((data) => {
+            console.log(data.result);
+            document.getElementById('result').innerHTML = getResultString(data.result);
+        }).catch((e) => {
+            console.error(e);
+        })
+    };
+
+    async function sendRequest(bottleQuantity) {
+        return await fetch('calc.php', {
+            method:'POST',
+            headers:{
+                "Content-type": "application/json; charset=UTF-8"
+            },
+            body: JSON.stringify({
+                'bottleQuantity': bottleQuantity
+            })
+        })
+    }
+
+    function getResultString (result) {
+        return 'Требуется маленьких коробок: '+ result.small_box + ', средних коробок:' + result.medium_box + ', больших коробок:' + result.big_box + '.';
+    }
+</script>
