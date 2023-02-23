@@ -1,6 +1,11 @@
 <?php
 $request = json_decode(file_get_contents('php://input'));
+header('Content-Type: application/json');
 $bottleQuantity = $request->bottleQuantity;
+if (!is_numeric($bottleQuantity)) {
+    http_response_code(400);
+    exit();
+}
 $result = [
     'small_box' => 0,
     'medium_box' => 0,
@@ -47,7 +52,6 @@ function fillBigBox ($bottleQuantity) {
 
 
 
-header('Content-Type: application/json');
 echo json_encode([
     'result' => $result
 ]);

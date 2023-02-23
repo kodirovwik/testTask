@@ -22,12 +22,15 @@
     let button = document.getElementById('submit');
 
     button.onclick = () => {
-        sendRequest(bottleQuantity.value).then((data) => {
-           return data.json();
+        sendRequest(bottleQuantity.value).then((response) => {
+            if (response.ok) {
+                return response.json();
+            }
+            return Promise.reject(response);
         }).then((data) => {
             document.getElementById('result').innerHTML = getResultString(data.result);
-        }).catch((e) => {
-            console.error(e);
+        }).catch(() => {
+            alert('Кол-во бутылок должно быть натуральным числом');
         })
     };
 
